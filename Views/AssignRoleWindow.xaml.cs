@@ -28,7 +28,7 @@ namespace TaskManagerApp.Views
             if (RolesComboBox.SelectedItem is string selectedRole)
             {
                 var roleId = _databaseService.GetUserRoleIdByName(selectedRole);
-                if (roleId == 0) //Проверяем, существует ли роль. Если не существует, то создаем.
+                if (roleId == 0) 
                 {
                     var newRoleId = _databaseService.CreateUserRole(selectedRole);
                     _databaseService.AddRoleToUser(_user.Id, newRoleId);

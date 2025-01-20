@@ -25,7 +25,7 @@ namespace TaskManagerApp.Services
                 if (task.DueDate.HasValue)
                 {
                     TimeSpan timeLeft = task.DueDate.Value - DateTime.Now;
-                    if (timeLeft.TotalDays <= 3 && timeLeft.TotalDays > 0) //Уведомление за 3 дня
+                    if (timeLeft.TotalDays <= 3 && timeLeft.TotalDays > 0) 
                     {
                         ShowNotification(task, $"Задача '{task.Title}' истекает через {timeLeft.Days} дней.");
                     }

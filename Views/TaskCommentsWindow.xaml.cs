@@ -42,7 +42,7 @@ namespace TaskManagerApp.Views
             var comment = new Comment
             {
                 TaskId = _task.Id,
-                UserId = MainWindow.CurrentUser.Id, // Используем статическое свойство для доступа к текущему пользователю
+                UserId = MainWindow.CurrentUser.Id, 
                 Text = CommentTextBox.Text,
                 CreatedAt = DateTime.Now
             };

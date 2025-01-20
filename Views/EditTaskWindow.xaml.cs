@@ -71,13 +71,13 @@ namespace TaskManagerApp.Views
             _task.Status = ((ComboBoxItem)StatusComboBox.SelectedItem)?.Content.ToString();
             _task.ProjectId = (ProjectComboBox.SelectedItem as Project)?.Id;
 
-            var oldAssigneeId = _task.AssigneeId; // Сохраняем старого исполнителя.
-            _task.AssigneeId = (AssigneeComboBox.SelectedItem as User)?.Id; // Устанавливаем нового исполнителя
+            var oldAssigneeId = _task.AssigneeId; 
+            _task.AssigneeId = (AssigneeComboBox.SelectedItem as User)?.Id; 
 
             _databaseService.UpdateTask(_task);
 
             if (oldAssigneeId != _task.AssigneeId)
-                _notificationService.CheckForAssignedTasks(); // Проверяем только если исполнитель поменялся
+                _notificationService.CheckForAssignedTasks(); 
 
             Close();
         }

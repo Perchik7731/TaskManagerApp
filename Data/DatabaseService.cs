@@ -11,28 +11,28 @@ namespace TaskManagerApp.Data
 {
     public class DatabaseService
     {
-        private const string DatabaseName = "TaskManager.db"; // Имя файла базы данных
+        private const string DatabaseName = "TaskManager.db"; 
         private readonly string _connectionString;
 
         public DatabaseService()
         {
             _connectionString = $"Data Source={DatabaseName};Version=3;";
-            EnsureDatabaseCreated(); // Гарантируем создание базы данных и таблиц при инициализации
+            EnsureDatabaseCreated(); 
         }
 
-        // Метод для создания подключения к базе данных
+        
         private SQLiteConnection GetConnection()
         {
             return new SQLiteConnection(_connectionString);
         }
 
-        // Гарантируем создание базы данных и таблиц
+        
         private void EnsureDatabaseCreated()
         {
-            // Проверяем, существует ли файл базы данных
+            
             if (!File.Exists(DatabaseName))
             {
-                // Если файла нет, то создаем новый файл базы данных
+                
                 SQLiteConnection.CreateFile(DatabaseName);
             }
 
@@ -40,7 +40,7 @@ namespace TaskManagerApp.Data
             {
                 connection.Open();
 
-                // Создаем таблицу Users
+                
                 connection.Execute(@"
                     CREATE TABLE IF NOT EXISTS Users (
                         Id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -50,7 +50,7 @@ namespace TaskManagerApp.Data
                     );
                 ");
 
-                // Создаем таблицу Projects
+               
                 connection.Execute(@"
                     CREATE TABLE IF NOT EXISTS Projects (
                         Id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -59,7 +59,7 @@ namespace TaskManagerApp.Data
                     );
                 ");
 
-                // Создаем таблицу Tasks
+                
                 connection.Execute(@"
                     CREATE TABLE IF NOT EXISTS Tasks (
                         Id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -75,7 +75,7 @@ namespace TaskManagerApp.Data
                     );
                 ");
 
-                // Создаем таблицу Comments
+                
                 connection.Execute(@"
                     CREATE TABLE IF NOT EXISTS Comments (
                         Id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -89,7 +89,7 @@ namespace TaskManagerApp.Data
                 ");
 
 
-                // Создаем таблицу UserRoles
+                
                 connection.Execute(@"
                     CREATE TABLE IF NOT EXISTS UserRoles (
                         Id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -97,10 +97,10 @@ namespace TaskManagerApp.Data
                     );
                 ");
 
-                // Добавляем базовые роли
+                
                 AddDefaultRoles(connection);
 
-                // Создаем таблицу UserProjects
+                
                 connection.Execute(@"
                     CREATE TABLE IF NOT EXISTS UserProjects (
                         UserId INTEGER,
@@ -111,7 +111,7 @@ namespace TaskManagerApp.Data
                     );
                 ");
 
-                // Создаем таблицу UserRoles
+                
                 connection.Execute(@"
                     CREATE TABLE IF NOT EXISTS UserUserRoles (
                         UserId INTEGER,
@@ -122,7 +122,7 @@ namespace TaskManagerApp.Data
                     );
                 ");
 
-                // Создаем таблицу Teams
+                
                 connection.Execute(@"
                     CREATE TABLE IF NOT EXISTS Teams (
                         Id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -130,7 +130,7 @@ namespace TaskManagerApp.Data
                         Description TEXT
                     );
                 ");
-                // Создаем таблицу UserTeams
+                
                 connection.Execute(@"
                     CREATE TABLE IF NOT EXISTS UserTeams (
                         UserId INTEGER,
@@ -140,7 +140,7 @@ namespace TaskManagerApp.Data
                             PRIMARY KEY (UserId, TeamId)
                     );
                 ");
-                // Создаем таблицу TaskTeams
+                
                 connection.Execute(@"
                     CREATE TABLE IF NOT EXISTS TaskTeams (
                         TaskId INTEGER,
@@ -155,18 +155,18 @@ namespace TaskManagerApp.Data
 
         private void AddDefaultRoles(SQLiteConnection connection)
         {
-            // Проверяем, есть ли уже роли в базе
+            
             int count = connection.QueryFirstOrDefault<int>("SELECT COUNT(*) FROM UserRoles");
-            if (count == 0) // Если ролей нет
+            if (count == 0) 
             {
-                // Добавляем роли Администратор и Пользователь
+                
                 connection.Execute("INSERT INTO UserRoles (RoleName) VALUES (@RoleName)", new { RoleName = "Администратор" });
                 connection.Execute("INSERT INTO UserRoles (RoleName) VALUES (@RoleName)", new { RoleName = "Пользователь" });
             }
 
         }
 
-        // Методы для выполнения запросов (пока примеры, потом дополним)
+       
 
         public User GetUserByLogin(string login)
         {
@@ -326,7 +326,7 @@ namespace TaskManagerApp.Data
                 connection.Execute("DELETE FROM Comments WHERE Id = @Id", new { Id = commentId });
             }
         }
-        // Методы для UserRoles
+        
 
         public int CreateUserRole(string roleName)
         {
@@ -354,7 +354,7 @@ namespace TaskManagerApp.Data
             }
         }
 
-        // Метод для добавления пользователя к проекту
+        
         public void AddUserToProject(int userId, int projectId)
         {
             using (var connection = GetConnection())
@@ -363,7 +363,7 @@ namespace TaskManagerApp.Data
             }
         }
 
-        // Метод для получения списка проектов пользователя
+        
         public List<Project> GetUserProjects(int userId)
         {
             using (var connection = GetConnection())
@@ -374,7 +374,7 @@ namespace TaskManagerApp.Data
             WHERE up.UserId = @UserId", new { UserId = userId }).ToList();
             }
         }
-        // Метод для добавления роли пользователю
+        
         public void AddRoleToUser(int userId, int roleId)
         {
             using (var connection = GetConnection())
@@ -382,7 +382,7 @@ namespace TaskManagerApp.Data
                 connection.Execute("INSERT INTO UserUserRoles (UserId, RoleId) VALUES (@UserId, @RoleId)", new { UserId = userId, RoleId = roleId });
             }
         }
-        // Метод для получения списка ролей пользователя
+        
         public List<string> GetUserRoles(int userId)
         {
             using (var connection = GetConnection())
@@ -402,7 +402,7 @@ namespace TaskManagerApp.Data
             }
         }
 
-        // Методы для Teams
+        
         public int CreateTeam(Team team)
         {
             using (var connection = GetConnection())
@@ -434,7 +434,7 @@ namespace TaskManagerApp.Data
             }
         }
 
-        // Метод для добавления пользователя к команде
+       
         public void AddUserToTeam(int userId, int teamId)
         {
             using (var connection = GetConnection())
@@ -443,7 +443,7 @@ namespace TaskManagerApp.Data
             }
         }
 
-        // Метод для получения списка пользователей команды
+        
         public List<User> GetTeamUsers(int teamId)
         {
             using (var connection = GetConnection())
@@ -454,7 +454,7 @@ namespace TaskManagerApp.Data
                     WHERE ut.TeamId = @TeamId", new { TeamId = teamId }).ToList();
             }
         }
-        // Метод для получения списка команд пользователя
+        
         public List<Team> GetUserTeams(int userId)
         {
             using (var connection = GetConnection())
@@ -465,7 +465,7 @@ namespace TaskManagerApp.Data
                     WHERE ut.UserId = @UserId", new { UserId = userId }).ToList();
             }
         }
-        // Метод для связывания задачи с командой
+        
         public void AddTaskToTeam(int taskId, int teamId)
         {
             using (var connection = GetConnection())
@@ -473,7 +473,7 @@ namespace TaskManagerApp.Data
                 connection.Execute("INSERT INTO TaskTeams (TaskId, TeamId) VALUES (@TaskId, @TeamId)", new { TaskId = taskId, TeamId = teamId });
             }
         }
-        // Метод для получения списка задач команды
+        
         public List<Task> GetTeamTasks(int teamId)
         {
             using (var connection = GetConnection())

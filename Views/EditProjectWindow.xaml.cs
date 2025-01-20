@@ -27,7 +27,7 @@ namespace TaskManagerApp.Views
             _project.Title = TitleTextBox.Text;
             _project.Description = DescriptionTextBox.Text;
 
-            _databaseService.CreateProject(_project); // Обновляем проект
+            _databaseService.CreateProject(_project); 
             Close();
         }
     }

@@ -27,7 +27,7 @@ namespace TaskManagerApp.Views
 
             if (user != null)
             {
-                // Успешная аутентификация
+                
                 MessageBox.Show("Вход выполнен успешно!", "Успех", MessageBoxButton.OK, MessageBoxImage.Information);
                 var mainWindow = new MainWindow();
                 MainWindow.CurrentUser = user;
@@ -36,7 +36,7 @@ namespace TaskManagerApp.Views
             }
             else
             {
-                // Неуспешная аутентификация
+                
                 MessageBox.Show("Неверный логин или пароль.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }

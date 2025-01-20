@@ -32,10 +32,10 @@ namespace TaskManagerApp.Services
         }
         public User RegisterUser(string login, string password, string email)
         {
-            // Проверяем, существует ли пользователь с таким логином
+            
             if (_databaseService.GetUserByLogin(login) != null)
             {
-                return null; // Пользователь уже существует
+                return null; 
             }
 
             var user = new User
@@ -47,12 +47,12 @@ namespace TaskManagerApp.Services
 
             var newUserId = _databaseService.CreateUser(user);
             user.Id = newUserId;
-            // Проверяем, это первый пользователь?
+            
             if (_databaseService.GetAllUsers().Count == 1)
             {
-                // Получаем Id роли "Администратор"
+                
                 int adminRoleId = _databaseService.GetUserRoleIdByName("Администратор");
-                // Назначаем роль "Администратор" первому пользователю
+                
                 _databaseService.AddRoleToUser(user.Id, adminRoleId);
             }
 

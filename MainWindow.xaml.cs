@@ -256,13 +256,13 @@ namespace TaskManagerApp
         {
             if (CurrentUser != null)
             {
-                // Получаем роли текущего пользователя
+                
                 List<string> roles = _databaseService.GetUserRoles(CurrentUser.Id);
 
-                // Проверяем, есть ли у пользователя роль "Администратор"
+                
                 if (roles != null && roles.Contains("Администратор"))
                 {
-                    // Если есть роль "Администратор", открываем окно
+                    
                     var userManagementWindow = new UserManagementWindow(_databaseService);
                     List<User> users = _databaseService.GetAllUsers();
                     foreach (var user in users)
@@ -274,7 +274,7 @@ namespace TaskManagerApp
                 }
                 else
                 {
-                    // Если нет роли "Администратор", показываем сообщение об ошибке
+                    
                     MessageBox.Show("У вас нет прав для доступа к управлению пользователями.", "Ошибка доступа", MessageBoxButton.OK, MessageBoxImage.Warning);
                 }
             }
