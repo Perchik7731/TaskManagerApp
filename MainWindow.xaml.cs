@@ -27,6 +27,7 @@ namespace TaskManagerApp
             this.ContentRendered += MainWindow_ContentRendered;
             App.ThemeChanged += App_ThemeChanged;
         }
+        
         private void App_ThemeChanged(object sender, EventArgs e)
         {
             var app = (App)Application.Current;
@@ -133,6 +134,12 @@ namespace TaskManagerApp
 
                 if (task.AssigneeId.HasValue)
                     task.Assignee = _databaseService.GetUserById(task.AssigneeId.Value);
+
+                if (task.TeamId.HasValue)
+                    task.Team = _databaseService.GetTeamById(task.TeamId.Value);
+
+                if (task.Id > 0)
+                    task.Team = _databaseService.GetTaskTeam(task.Id);
             }
 
             var filteredTasks = FilterTasks(tasks);

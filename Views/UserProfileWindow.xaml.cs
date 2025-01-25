@@ -29,7 +29,7 @@ namespace TaskManagerApp.Views
         }
         private void LoadUserData()
         {
-            LoginTextBlock.Text = _currentUser.Login;
+            FIOTextBlock.Text = _currentUser.FIO;
             EmailTextBlock.Text = _currentUser.Email;
         }
         private void LoadUserTasks()

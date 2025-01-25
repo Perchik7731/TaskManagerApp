@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TaskManagerApp"
         mc:Ignorable="d"
-        Title="Менеджер Задач" Height="450" Width="1200">
+        Title="Менеджер Задач" Height="450" Width="1200"
+         Icon="C:\Users\Student\Desktop\TaskManagerApp\Themes\inlet.ico">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -36,7 +37,8 @@
 
             <Button Content="Управление командами" Click="ViewTeamManagementButton_Click" Margin="0,0,5,0"/>
 
-            <Button Content="Настройки" Click="ViewSettingsButton_Click" Margin="0,0,5,0"/>
+            <TextBlock x:Name="FIOTextBlock" Margin="0,0,5,0"/>
+
         </StackPanel>
         <DataGrid x:Name="TasksDataGrid" Grid.Row="1" AutoGenerateColumns="False" IsReadOnly="True">
             <DataGrid.Columns>
@@ -47,6 +49,7 @@
                 <DataGridTextColumn Header="Статус" Binding="{Binding Status}" Width="Auto"/>
                 <DataGridTextColumn Header="Проект" Binding="{Binding Project.Title}" Width="*"/>
                 <DataGridTextColumn Header="Исполнитель" Binding="{Binding Assignee.Login}" Width="*"/>
+                <DataGridTextColumn Header="Команда" Binding="{Binding Team.Name}" Width="*"/>
                 <DataGridTemplateColumn>
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>

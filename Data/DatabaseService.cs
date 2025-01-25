@@ -21,7 +21,7 @@ namespace TaskManagerApp.Data
         }
 
         
-        private SQLiteConnection GetConnection()
+        public SQLiteConnection GetConnection()
         {
             return new SQLiteConnection(_connectionString);
         }
@@ -46,7 +46,8 @@ namespace TaskManagerApp.Data
                         Id INTEGER PRIMARY KEY AUTOINCREMENT,
                         Login TEXT NOT NULL UNIQUE,
                         PasswordHash TEXT NOT NULL,
-                        Email TEXT
+                        Email TEXT,
+                        FIO VARCHAR(255)
                     );
                 ");
 
@@ -354,6 +355,13 @@ namespace TaskManagerApp.Data
             }
         }
 
+        public string GetUserFIOByLogin(string userLogin)
+        {
+            using (var connection = GetConnection())
+            {
+                return connection.QueryFirstOrDefault<string>("SELECT FIO FROM Users WHERE Login = @Login", new { Login = userLogin });
+            }
+        }
         
         public void AddUserToProject(int userId, int projectId)
         {
@@ -482,6 +490,17 @@ namespace TaskManagerApp.Data
                    SELECT t.* FROM Tasks t
                    INNER JOIN TaskTeams tt ON t.Id = tt.TaskId
                    WHERE tt.TeamId = @TeamId", new { TeamId = teamId }).ToList();
+            }
+        }
+
+        public Team GetTaskTeam(int taskId)
+        {
+            using (var connection = GetConnection())
+            {
+                return connection.QueryFirstOrDefault<Team>(@"
+                    SELECT t.* FROM Teams t
+                    INNER JOIN TaskTeams tt ON t.Id = tt.TeamId
+                    WHERE tt.TaskId = @TaskId", new { TaskId = taskId });
             }
         }
     }

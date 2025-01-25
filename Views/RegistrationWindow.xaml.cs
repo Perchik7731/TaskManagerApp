@@ -20,11 +20,12 @@ namespace TaskManagerApp.Views
         private void RegisterButton_Click(object sender, RoutedEventArgs e)
         {
             string login = LoginTextBox.Text;
-            string password = PasswordBox.Password;
+            string password = PasswordTextBox.Password;
             string email = EmailTextBox.Text;
+            string FIO = FIOTextBox.Text;
 
             var authenticationService = new AuthenticationService(_databaseService);
-            var registrationResult = authenticationService.RegisterUser(login, password, email);
+            var registrationResult = authenticationService.RegisterUser(login, password, email, FIO);
 
             if (registrationResult == null)
             {

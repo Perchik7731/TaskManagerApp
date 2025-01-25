@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
 using TaskManagerApp.Data;
 using TaskManagerApp.Models;
@@ -17,11 +15,17 @@ namespace TaskManagerApp.Views
             _databaseService = databaseService;
             LoadProjects();
             LoadUsers();
+            LoadTeams();
             App.ThemeChanged += App_ThemeChanged;
         }
         private void App_ThemeChanged(object sender, EventArgs e)
         {
             Resources.MergedDictionaries.Clear();
+        }
+        private void LoadTeams()
+        {
+            List<Team> teams = _databaseService.GetAllTeams();
+            TeamComboBox.ItemsSource = teams;
         }
         private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
@@ -33,10 +37,12 @@ namespace TaskManagerApp.Views
                 DueDate = DueDatePicker.SelectedDate.HasValue ? DueDatePicker.SelectedDate.Value : (DateTime?)null,
                 Status = ((ComboBoxItem)StatusComboBox.SelectedItem)?.Content.ToString(),
                 ProjectId = (ProjectComboBox.SelectedItem as Project)?.Id,
-                AssigneeId = (AssigneeComboBox.SelectedItem as User)?.Id
+                AssigneeId = (AssigneeComboBox.SelectedItem as User)?.Id,
+                TeamId = (TeamComboBox.SelectedItem as Team)?.Id
             };
-
-            _databaseService.CreateTask(task);
+            int taskId = _databaseService.CreateTask(task);
+            if (task.TeamId.HasValue)
+                _databaseService.AddTaskToTeam(taskId, task.TeamId.Value);
             Close();
         }
         private void LoadProjects()

@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TaskManagerApp.Views"
         mc:Ignorable="d"
-        Title="EditTaskWindow" Height="450" Width="800">
+        Title="Редактировать задачу" Height="450" Width="800"
+         Icon="C:\Users\Student\Desktop\TaskManagerApp\Themes\inlet.ico">
     <Grid Margin="10">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -53,6 +54,8 @@
         <Label Grid.Row="6" Grid.Column="0" Content="Исполнитель:" Margin="0,5,5,5"/>
         <ComboBox Grid.Row="6" Grid.Column="1" x:Name="AssigneeComboBox" Margin="0,5,0,5" DisplayMemberPath="Login" SelectedValuePath="Id"/>
 
+        <Label Grid.Row="7" Grid.Column="0" Content="Команда:" Margin="0,5,5,5"/>
+        <ComboBox Grid.Row="7" Grid.Column="1" x:Name="TeamComboBox" Margin="0,5,0,5" DisplayMemberPath="Name"/>
 
         <Button Grid.Row="8" Grid.Column="1" Content="Сохранить" Click="SaveButton_Click" Margin="0,10,0,0" HorizontalAlignment="Right" Width="100"/>
     </Grid>

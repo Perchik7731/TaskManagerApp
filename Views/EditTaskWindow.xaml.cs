@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Dapper;
+using System;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
@@ -24,6 +25,7 @@ namespace TaskManagerApp.Views
             LoadTaskDetails();
             LoadProjects();
             LoadUsers();
+            LoadTeams();
         }
 
         private void LoadTaskDetails()
@@ -59,9 +61,17 @@ namespace TaskManagerApp.Views
 
             if (_task.AssigneeId.HasValue)
                 AssigneeComboBox.SelectedItem = _databaseService.GetUserById(_task.AssigneeId.Value);
+
+            if (_task.TeamId.HasValue)
+                TeamComboBox.SelectedItem = _databaseService.GetTeamById(_task.TeamId.Value);
         }
 
 
+        private void LoadTeams()
+        {
+            List<Team> teams = _databaseService.GetAllTeams();
+            TeamComboBox.ItemsSource = teams;
+        }
         private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
             _task.Title = TitleTextBox.Text;
@@ -70,15 +80,24 @@ namespace TaskManagerApp.Views
             _task.DueDate = DueDatePicker.SelectedDate.HasValue ? DueDatePicker.SelectedDate.Value : (DateTime?)null;
             _task.Status = ((ComboBoxItem)StatusComboBox.SelectedItem)?.Content.ToString();
             _task.ProjectId = (ProjectComboBox.SelectedItem as Project)?.Id;
+            _task.AssigneeId = (AssigneeComboBox.SelectedItem as User)?.Id;
 
-            var oldAssigneeId = _task.AssigneeId; 
-            _task.AssigneeId = (AssigneeComboBox.SelectedItem as User)?.Id; 
+            var oldTeamId = _task.TeamId;
+            _task.TeamId = (TeamComboBox.SelectedItem as Team)?.Id;
 
             _databaseService.UpdateTask(_task);
 
-            if (oldAssigneeId != _task.AssigneeId)
-                _notificationService.CheckForAssignedTasks(); 
-
+            if (oldTeamId != _task.TeamId && _task.TeamId.HasValue)
+                _databaseService.AddTaskToTeam(_task.Id, _task.TeamId.Value);
+            else if (!_task.TeamId.HasValue && oldTeamId.HasValue)
+            {
+                using (var connection = _databaseService.GetConnection())
+                {
+                    connection.Execute("DELETE FROM TaskTeams WHERE TaskId = @Id", new { Id = _task.Id });
+                }
+            }
+            if (_task.Id > 0)
+                _task.Team = _databaseService.GetTaskTeam(_task.Id);
             Close();
         }
         private void LoadProjects()

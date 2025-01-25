@@ -5,27 +5,21 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TaskManagerApp.Views"
         mc:Ignorable="d"
-        Title="LoginWindow" Height="450" Width="800">
-    <Grid Margin="20">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="*"/>
-        </Grid.ColumnDefinitions>
-
-        <Label Grid.Row="0" Grid.Column="0" Content="Логин:" Margin="0,5,5,5"/>
-        <TextBox Grid.Row="0" Grid.Column="1" x:Name="LoginTextBox" Margin="0,5,0,5"/>
-
-        <Label Grid.Row="1" Grid.Column="0" Content="Пароль:" Margin="0,5,5,5"/>
-        <PasswordBox Grid.Row="1" Grid.Column="1" x:Name="PasswordBox" Margin="0,5,0,5"/>
-
-        <Button Grid.Row="2" Grid.Column="1" Content="Войти" Click="LoginButton_Click" Margin="0,10,0,0" HorizontalAlignment="Right" Width="80"/>
-        <Button Grid.Row="3" Grid.Column="1" Content="Зарегистрироваться" Click="RegisterButton_Click"  Margin="0,10,0,0" HorizontalAlignment="Right" Width="140"/>
-        <Button Grid.Row="3" Grid.Column="1" Content="Забыли пароль?" Click="ForgotPasswordButton_Click"  Margin="0,35,0,-25" HorizontalAlignment="Right" Width="140"/>
+        Title="Меню входа" Height="550" Width="850"
+        Icon="C:\Users\Student\Desktop\TaskManagerApp\Themes\inlet.ico" ResizeMode="NoResize">
+    <Grid>
+        <StackPanel>
+            <Grid>
+                <TextBox x:Name="LoginTextBox" Margin="209,154,227,321" Height="59" Width="384" FontSize="30"/>
+                <PasswordBox x:Name="PasswordBox" Margin="209,255,227,220" Height="59" Width="384" FontSize="30"/>
+                <Button Content="Войти" Click="LoginButton_Click" FontSize="20" RenderTransformOrigin="-0.586,0.703" Margin="224,339,460,140"/>
+                <Button Content="Регистрация" Click="RegisterButton_Click" Width="166" HorizontalAlignment="Left" FontSize="20" Margin="442,339,0,140"/>
+                <Label Content="Вход в систему" HorizontalAlignment="Center" Margin="0,38,0,0" VerticalAlignment="Top" FontWeight="Bold" FontSize="48"/>
+                <Button Background="White" Content="Забыли пароль?" Click="ForgotPasswordButton_Click" Width="168" HorizontalAlignment="Left" FontSize="20" Height="49" Margin="317,419,0,66"/>
+                <Label Content="Логин" HorizontalAlignment="Left" Margin="224,117,0,0" VerticalAlignment="Top" FontSize="20"/>
+                <Label Content="Пароль" HorizontalAlignment="Left" Margin="224,218,0,0" VerticalAlignment="Top"  FontSize="20"/>
+            </Grid>
+        </StackPanel>
     </Grid>
+    
 </Window>

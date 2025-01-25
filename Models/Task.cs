@@ -18,5 +18,7 @@ namespace TaskManagerApp.Models
         public int? AssigneeId { get; set; }
         public Project Project { get; set; } 
         public User Assignee { get; set; }
+        public Team Team { get; set; }
+        public int? TeamId { get; set; }
     }
 }

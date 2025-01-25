@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TaskManagerApp.Views"
         mc:Ignorable="d"
-        Title="ComboBoxDialog" Height="450" Width="800">
+        Title="ComboBoxDialog" Height="450" Width="800"
+         Icon="C:\Users\Student\Desktop\TaskManagerApp\Themes\inlet.ico">
     <Grid Margin="10">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>

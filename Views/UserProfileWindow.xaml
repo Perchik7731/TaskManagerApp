@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TaskManagerApp.Views"
         mc:Ignorable="d"
-        Title="Личный кабинет" Height="450" Width="882">
+        Title="Личный кабинет" Height="450" Width="882"
+         Icon="C:\Users\Student\Desktop\TaskManagerApp\Themes\inlet.ico">
     <Grid Margin="20">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -19,8 +20,8 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
-        <Label Grid.Row="0" Grid.Column="0" Content="Логин:" Margin="0,5,5,5"/>
-        <TextBlock Grid.Row="0" Grid.Column="1" x:Name="LoginTextBlock" Margin="0,5,0,5" FontWeight="Bold"/>
+        <Label Grid.Row="0" Grid.Column="0" Content="ФИО:" Margin="0,5,5,5"/>
+        <TextBlock Grid.Row="0" x:Name="FIOTextBlock" Margin="173,0,0,10" FontWeight="Bold" Grid.ColumnSpan="2"/>
 
         <Label Grid.Row="1" Grid.Column="0" Content="Email:" Margin="0,5,5,5"/>
         <TextBlock Grid.Row="1" Grid.Column="1" x:Name="EmailTextBlock" Margin="0,5,0,5" FontWeight="Bold"/>
@@ -40,11 +41,10 @@
 
         <StackPanel Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10,0,0">
             <Label Content="Текущий пароль:" Margin="0,0,5,0"/>
-            <PasswordBox x:Name="CurrentPasswordBox" Width="120" Height="50" VerticalAlignment="Top"  Margin="0,0,10,0" />
+            <PasswordBox x:Name="CurrentPasswordBox" Width="120" Height="23" VerticalAlignment="Top"  Margin="0,5,10,0" />
             <Label Content="Новый пароль:" Margin="0,0,5,0"/>
-            <PasswordBox x:Name="NewPasswordBox" Width="120"  Margin="0,0,10,0" Height="50" VerticalAlignment="Top"/>
-            <Button Content="Сменить пароль" Click="ChangePasswordButton_Click" Margin="0,0,0,0" HorizontalAlignment="Right" Height="25" VerticalAlignment="Top" />
+            <PasswordBox x:Name="NewPasswordBox" Width="120"  Margin="0,5,10,0" Height="20" VerticalAlignment="Top"/>
+            <Button Content="Сменить пароль" Click="ChangePasswordButton_Click" Margin="0,5,0,0" HorizontalAlignment="Right" Height="25" VerticalAlignment="Top" />
         </StackPanel>
-
     </Grid>
 </Window>

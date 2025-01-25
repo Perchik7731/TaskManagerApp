@@ -30,7 +30,7 @@ namespace TaskManagerApp.Services
 
             return null;
         }
-        public User RegisterUser(string login, string password, string email)
+        public User RegisterUser(string login, string password, string email, string FIO)
         {
             
             if (_databaseService.GetUserByLogin(login) != null)
@@ -42,7 +42,8 @@ namespace TaskManagerApp.Services
             {
                 Login = login,
                 PasswordHash = HashPassword(password),
-                Email = email
+                Email = email,
+                FIO = FIO
             };
 
             var newUserId = _databaseService.CreateUser(user);

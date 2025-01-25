@@ -13,6 +13,7 @@ namespace TaskManagerApp.Models
         public string PasswordHash { get; set; }
         public string Email { get; set; }
         public List<string> Roles { get; set; }
+        public string FIO {  get; set; }
 
         public string RolesString
         {
